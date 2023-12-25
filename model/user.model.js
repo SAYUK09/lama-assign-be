@@ -16,13 +16,6 @@ const userSchema = new mongoose.Schema({
   profilePhoto: {
     type: String,
   },
-  projects: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Project",
-      populate: { select: "name descriptions" },
-    },
-  ],
   date: {
     type: Date,
     default: Date.now,
