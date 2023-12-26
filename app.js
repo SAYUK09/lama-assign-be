@@ -70,6 +70,27 @@ app.get("/projects", async (req, res) => {
   }
 });
 
+app.patch("/project", async (req, res) => {
+  const projectId = req.query.projectId;
+  console.log(req.body, "WTH");
+
+  try {
+    const updatedProject = await Project.findByIdAndUpdate(
+      projectId,
+      { $set: { general: { ...req.body } } },
+      { new: true }
+    );
+
+    if (!updatedProject) {
+      return res.status(404).json({ message: "Description not found" });
+    }
+
+    res.status(200).json({ project: updatedProject, status:200 });
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
 app.get("/descriptions", async (req, res) => {
   try {
     const descriptionId = req.query.descriptionId;
